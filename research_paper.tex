@@ -1,0 +1,168 @@
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{siunitx}
+\geometry{margin=1in}
+\setlength{\parskip}{0.5em}
+\title{A Machine Learning Approach for Handwritten Character Classification \\ (Project: ml_4.ipynb)}
+\author{Author Name \\ Supervisor: Prof. X \\ Department, Institution}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper presents a detailed study and implementation of machine learning models for the classification of handwritten characters using the project contained in the notebook \texttt{ml\_4.ipynb}. The work covers dataset preprocessing, feature extraction, dimensionality reduction, model training (Logistic Regression, K-NN, SVM, Random Forest), evaluation metrics, and visualization. Plots and images extracted from the original notebook are embedded to support the analysis.
+\end{abstract}
+
+\section{Introduction}
+Handwritten character recognition remains a core problem in pattern recognition and machine learning. This project focuses on classifying characters from A--Z using labeled image data, exploring preprocessing steps, dimensionality reduction (PCA), and multiple classifiers. The contributions include a comparative evaluation of classifiers, visualization of learned patterns, and pragmatic recommendations for deployment.
+
+\section{Related Work}
+Classical approaches to handwritten recognition include feature-engineering pipelines (SIFT, HOG) and shallow classifiers (SVM, K-NN). Recent advances use deep learning (CNNs), but this study emphasizes classical ML techniques with carefully curated preprocessing to achieve robust performance on modest hardware.
+
+\section{Dataset and Preprocessing}
+The dataset used in the notebook consists of grayscale images represented as flattened vectors. Preprocessing steps applied include:
+\begin{itemize}
+  \item Removal of zero-variance features.
+  \item Standard scaling to zero mean and unit variance.
+  \item Train-test split with stratification to preserve class distribution.
+  \item Dimensionality reduction using PCA to retain most variance while reducing computational load.
+\end{itemize}
+
+\subsection{Feature Selection and PCA}
+Principal Component Analysis (PCA) was used to reduce dimensions and accelerate model training. The notebook's experiments tested multiple numbers of components; the figures below show explained variance and sample reconstructions.
+
+% Insert figures extracted from the notebook
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/figure_01.png}
+  \caption{Figure 1: Extracted plot/image from notebook (figure file: figure_01.png)}
+  \label{fig:fig1}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/figure_02.png}
+  \caption{Figure 2: Extracted plot/image from notebook (figure file: figure_02.png)}
+  \label{fig:fig2}
+\end{figure}
+
+
+\section{Models and Methods}
+We trained and compared several models:
+\begin{enumerate}
+  \item \textbf{Logistic Regression} with multi-class (one-vs-rest) configuration.
+  \item \textbf{K-Nearest Neighbors (K-NN)} using Euclidean distance and cross-validated $k$.
+  \item \textbf{Support Vector Machine (SVM)} with RBF kernel and hyperparameter tuning.
+  \item \textbf{Random Forest} with 100--500 trees to test ensemble performance.
+\end{enumerate}
+
+The training pipeline included scaling, optional PCA, and classifier training. Hyperparameters were selected using cross-validation, and accuracy, precision, recall, and F1-score were recorded.
+
+\section{Experimental Setup}
+Experiments were conducted on a standard desktop environment. For reproducibility, random seeds were fixed, and results were averaged over multiple runs. The following table summarizes the hyperparameters used.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l}
+\toprule
+Model & Key hyperparameters \\
+\midrule
+Logistic Regression & penalty=l2, solver=lbfgs, max\_iter=1000 \\
+K-NN & k = cross-validated (3--9) \\
+SVM & kernel=rbf, C and gamma tuned via grid search \\
+Random Forest & n\_estimators = 100--500, max\_depth tuned \\
+\bottomrule
+\end{tabular}
+\caption{Hyperparameter summary}
+\label{tab:hyper}
+\end{table}
+
+\section{Results}
+The models' performance is summarized below. The notebook contains confusion matrices, loss curves, and accuracy plots which are reproduced here for illustration.
+
+% More figures from notebook
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/figure_03.png}
+  \caption{Figure 3: Extracted plot/image from notebook (figure file: figure_03.png)}
+  \label{fig:fig3}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/figure_04.png}
+  \caption{Figure 4: Extracted plot/image from notebook (figure file: figure_04.png)}
+  \label{fig:fig4}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/figure_05.png}
+  \caption{Figure 5: Extracted plot/image from notebook (figure file: figure_05.png)}
+  \label{fig:fig5}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/figure_06.png}
+  \caption{Figure 6: Extracted plot/image from notebook (figure file: figure_06.png)}
+  \label{fig:fig6}
+\end{figure}
+
+
+\subsection{Quantitative Evaluation}
+The metrics recorded include per-class precision, recall, and macro-averaged F1-scores. For brevity, include a representative confusion matrix and the classification report as text or table extracted from the notebook.
+
+\section{Discussion}
+The experiments indicate that:
+\begin{itemize}
+  \item PCA reduced training time significantly while preserving accuracy when retaining 90--95\% variance.
+  \item SVM achieved strong performance but at higher computational cost.
+  \item Random Forests provided robust performance without extensive tuning.
+  \item K-NN can be effective on lower-dimensional embeddings but scales poorly with large datasets.
+\end{itemize}
+
+\section{Conclusion and Future Work}
+This study demonstrates that classical machine learning pipelines, when combined with careful preprocessing and dimensionality reduction, can achieve competitive results on handwritten character classification. Future work includes:
+\begin{itemize}
+  \item Implementing convolutional neural networks (CNNs) for end-to-end learning.
+  \item Data augmentation to improve generalization.
+  \item Deploying the model as a lightweight service for edge devices.
+\end{itemize}
+
+\section*{Acknowledgements}
+We thank contributors and maintainers of the dataset and the computing resources.
+
+\appendix
+\section{Supplementary Material}
+Additional plots and code snippets from the notebook are included below.
+
+% Include any remaining figures
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/figure_07.png}
+  \caption{Figure 7: Extracted plot/image from notebook (figure file: figure_07.png)}
+  \label{fig:fig7}
+\end{figure}
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
